@@ -568,117 +568,103 @@ main {
 
 /* 原有样式保持不变... */
 
-/* Gitalk评论样式适配 */
-#gitalk-container {
+/* Valine评论样式适配 */
+#vcomments {
     margin-top: 20px;
 }
 
-.gt-container {
+.v {
     font-family: 'Microsoft YaHei', sans-serif !important;
 }
 
-.gt-header-textarea {
-    background-color: #fff9e6 !important;
-    border: 1px solid #f5d76e !important;
-    border-radius: 5px !important;
-}
-
-.gt-btn {
+.v .vbtn {
     background-color: #f39c12 !important;
     border: 1px solid #f39c12 !important;
+    color: white !important;
 }
 
-.gt-btn-preview {
-    background-color: transparent !important;
-    color: #f39c12 !important;
+.v .vbtn:hover {
+    background-color: #d35400 !important;
+    border-color: #d35400 !important;
 }
 
-.gt-popup {
-    background-color: #fff9e6 !important;
-    border: 1px solid #f5d76e !important;
+.v .vnick:focus,
+.v .vmail:focus,
+.v .vlink:focus,
+.v .vedit textarea:focus {
+    border-color: #f39c12 !important;
+    box-shadow: 0 0 5px rgba(243, 156, 18, 0.3) !important;
 }
 
-.gt-user .gt-ico svg {
-    fill: #d35400 !important;
-}
-
-.gt-comment-username {
+.v .vcount {
     color: #d35400 !important;
 }
 
-.gt-comment-content {
-    background-color: white !important;
-    border-radius: 8px !important;
+.v .vnick,
+.v .vmail,
+.v .vlink {
+    border-radius: 5px !important;
+    border: 1px solid #ddd !important;
+}
+
+.v .vpanel {
+    border-radius: 10px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+}
+
+.v .vlist {
+    border-radius: 10px !important;
+}
+
+.v .vcard {
+    border-radius: 10px !important;
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1) !important;
 }
 
-.gt-ico-github svg {
-    fill: #d35400 !important;
-}
-
-.gt-link {
-    color: #d35400 !important;
-    border-bottom: 1px dotted #d35400 !important;
-}
-
-.gt-avatar {
-    border-radius: 50% !important;
-}
-
-/* Gitalk样式优化 */
-.gt-container {
-    max-width: 100% !important;
-    margin-top: 20px;
-}
-
-.gt-header-textarea {
-    min-height: 100px !important;
-    background: rgba(255, 249, 230, 0.8) !important;
-    border: 1px solid #f5d76e !important;
-    border-radius: 8px !important;
-}
-
-.gt-btn-login {
-    background-color: #f39c12 !important;
-    border: none !important;
-    color: white !important;
-    padding: 8px 16px !important;
-    border-radius: 4px !important;
-}
-
-.gt-btn-public {
-    background-color: #d35400 !important;
-    border: none !important;
-}
-
-.gt-user .gt-ico svg {
-    fill: #d35400 !important;
-}
-
-.gt-comment-body {
+.v .vcontent {
     color: #333 !important;
     font-size: 16px !important;
     line-height: 1.6 !important;
 }
 
-.gt-comment-content {
-    background-color: rgba(255, 255, 255, 0.9) !important;
-    border-radius: 8px !important;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+.v .vat {
+    color: #d35400 !important;
+}
+
+.v .vat:hover {
+    color: #a04000 !important;
+}
+
+.v .vmeta .vat {
+    background-color: #f39c12 !important;
+    border-radius: 3px !important;
+    padding: 2px 8px !important;
+}
+
+.v .vmeta .vat:hover {
+    background-color: #d35400 !important;
+}
+
+.v .vempty {
+    color: #666 !important;
+    text-align: center !important;
+    padding: 20px !important;
 }
 
 /* 移动端适配 */
 @media (max-width: 768px) {
-    .gt-container {
-        padding: 0 10px !important;
+    .v .vpanel,
+    .v .vlist {
+        padding: 10px !important;
     }
     
-    .gt-header-textarea {
-        font-size: 16px !important; /* 防止iOS缩放 */
-    }
-    
-    .gt-btn-login, .gt-btn-public {
+    .v .vbtn {
         width: 100% !important;
         margin-bottom: 10px !important;
+    }
+    
+    .v .vcol-20,
+    .v .vcol-80 {
+        width: 100% !important;
     }
 }
