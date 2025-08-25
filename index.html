@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jane的小说网站 - 带Gitalk评论系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', sans-serif;
+        }
+
+        body {
+            background-color: #fff9e6;
+            color: #333;
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* 头部样式 */
+        header {
+            background-color: #f8e58c;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 100;
+        }
+
+        .logo a {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #d35400;
+            text-decoration: none;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: #d35400;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: #a04000;
+        }
+
+        /* 主要内容区域 */
+        main {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* 搜索框样式 */
+        .search-section {
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        #search-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 0.8rem 1rem;
+            border: 2px solid #f5d76e;
+            border-radius: 30px;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s;
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+
+        #search-input:focus {
+            border-color: #f39c12;
+            box-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
+        }
+
+        /* 小说列表样式 */
+        .novel-list h2, .about-section h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: #d35400;
+            position: relative;
+        }
+
+        .novels-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            position: relative;
+        }
+
+        /* 小说卡片样式 */
+        .novel-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s forwards;
+            cursor: pointer;
+            position: relative;
+            z-index: 5;
+        }
+
+        .novel-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .novel-card h3 {
+            color: #d35400;
+            margin-bottom: 0.5rem;
+        }
+
+        .novel-card p {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .novel-card .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .novel-card .tag {
+            background-color: #f5d76e;
+            color: #d35400;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .novel-card .details-btn {
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        .novel-card .details-btn:hover {
+            background-color: #d35400;
+        }
+
+        /* 关于区域样式 */
+        .about-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 5;
+        }
+
+        .about-content p {
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        /* 模态框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: rgba(255, 249, 230, 0.95);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 10px;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 1.5rem;
+            color: #d35400;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #a04000;
+        }
+
+        /* 卷列表样式 */
+        .volumes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .volume-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .volume-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .volume-card h3 {
+            color: #d35400;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 全屏阅读样式 */
+        .fullscreen-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 249, 230, 1);
+            z-index: 3000;
+            overflow-y: auto;
+            padding: 2rem;
+            overflow: hidden;
+        }
+
+        .fullscreen-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .reader-controls {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            display: flex;
+            gap: 1rem;
+            z-index: 3001;
+        }
+
+        .reader-btn {
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .reader-btn:hover {
+            background-color: #d35400;
+            transform: scale(1.05);
+        }
+
+        .reader-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .chapter-navigation {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid #f5d76e;
+        }
+
+        .chapter-text {
+            line-height: 1.8;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 5;
+        }
+
+        .chapter-text p {
+            margin-bottom: 1.5rem;
+            text-indent: 2em;
+        }
+
+        #reader-title small {
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        /* 粉色雨滴效果 */
+        .reader-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .reader-drop {
+            position: absolute;
+            width: 1px;
+            height: 30px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 182, 193, 0.6));
+            animation: rainDrop 1.5s linear infinite;
+        }
+
+        @keyframes rainDrop {
+            0% {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(100vh);
+                opacity: 0;
+            }
+        }
+
+        /* 粉色涟漪效果 */
+        .reader-ripple {
+            position: absolute;
+            width: 10px;
+            height: 5px;
+            background: rgba(255, 182, 193, 0.4);
+            border-radius: 50%;
+            animation: rippleEffect 1s ease-out;
+            transform: scale(0);
+        }
+
+        @keyframes rippleEffect {
+            to {
+                transform: scale(6);
+                opacity: 0;
+            }
+        }
+
+        /* 返回按钮样式 */
+        .back-btn {
+            background-color: #f39c12;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-bottom: 1rem;
+        }
+
+        .back-btn:hover {
+            background-color: #d35400;
+        }
+
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Gitalk评论样式适配 */
+        #gitalk-container {
+            margin-top: 30px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .gt-container {
+            font-family: 'Microsoft YaHei', sans-serif !important;
+            border: none !important;
+        }
+
+        .gt-header-textarea {
+            background-color: #fff9e6 !important;
+            border: 1px solid #f5d76e !important;
+            border-radius: 5px !important;
+            padding: 12px !important;
+        }
+
+        .gt-btn {
+            background-color: #f39c12 !important;
+            border: 1px solid #f39c12 !important;
+            border-radius: 5px !important;
+            padding: 8px 16px !important;
+        }
+
+        .gt-btn-preview {
+            background-color: transparent !important;
+            color: #f39c12 !important;
+        }
+
+        .gt-popup {
+            background-color: #fff9e6 !important;
+            border: 1px solid #f5d76e !important;
+            border-radius: 5px !important;
+        }
+
+        .gt-user .gt-ico svg {
+            fill: #d35400 !important;
+        }
+
+        .gt-comment-username {
+            color: #d35400 !important;
+            font-weight: bold !important;
+        }
+
+        .gt-comment-content {
+            background-color: white !important;
+            border-radius: 8px !important;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1) !important;
+            padding: 15px !important;
+            margin-top: 10px !important;
+        }
+
+        .gt-ico-github svg {
+            fill: #d35400 !important;
+        }
+
+        .gt-link {
+            color: #d35400 !important;
+            border-bottom: 1px dotted #d35400 !important;
+        }
+
+        .gt-avatar {
+            border-radius: 50% !important;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1) !important;
+        }
+
+        .gt-header-preview {
+            border: 1px solid #f5d76e !important;
+            border-radius: 5px !important;
+            padding: 12px !important;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+            }
+
+            .logo {
+                margin-bottom: 1rem;
+            }
+
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 0.5rem 0;
+            }
+
+            .novels-container {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+            }
+
+            .reader-controls {
+                top: auto;
+                bottom: 1rem;
+                right: 50%;
+                transform: translateX(50%);
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .reader-btn {
+                margin: 0.2rem;
+            }
+            
+            .gt-container {
+                padding: 0 10px !important;
+            }
+            
+            .gt-header-textarea {
+                font-size: 16px !important;
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            color: #d35400;
+            background-color: #f8e58c;
+        }
+
+        .social-links {
+            margin-top: 10px;
+        }
+
+        .social-links a {
+            color: #d35400;
+            margin: 0 10px;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 页面主体结构 -->
+    <header>
+        <div class="logo">
+            <a href="#" id="home-link">Jane的小说网站</a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#fiction" id="fiction-link">非虚构小说</a></li>
+                <li><a href="#fiction" id="fiction-all-link">虚构小说</a></li>
+                <li><a href="#about" id="about-link">关于</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- 搜索区域 -->
+        <section class="search-section">
+            <input type="text" id="search-input" placeholder="搜索..." autocomplete="off">
+        </section>
+
+        <!-- 小说列表区域 - 默认显示 -->
+        <section class="novel-list" id="novel-section">
+            <h2>我的小说</h2>
+            <div class="novels-container" id="novels-container">
+                <!-- 小说卡片将通过JavaScript动态生成 -->
+            </div>
+        </section>
+
+        <!-- 关于区域 - 默认隐藏 -->
+        <section class="about-section" id="about-section" style="display: none;">
+            <h2>关于作者</h2>
+            <div class="about-content">
+                <p>大家好，我是Jane，一名热爱写作的创作者。</p>
+                <p>我的小说主要聚焦于现实生活中的情感故事，希望通过文字传递温暖和力量。</p>
+                <p>写作是我表达自我的方式，也是我与世界对话的桥梁。</p>
+                <p>感谢你的阅读和支持！</p>
+            </div>
+        </section>
+
+        <!-- 小说详情模态框 - 默认隐藏 -->
+        <div class="modal" id="novel-modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2 id="modal-title">小说详情</h2>
+                <div class="volumes-container" id="volumes-container">
+                    <!-- 卷列表将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 全屏阅读模态框 -->
+        <div class="fullscreen-modal" id="fullscreen-reader" style="display: none;">
+            <div class="reader-controls">
+                <button class="reader-btn" id="prev-chapter">上一章</button>
+                <button class="reader-btn" id="next-chapter">下一章</button>
+                <button class="reader-btn" id="close-reader">关闭</button>
+            </div>
+            <div class="fullscreen-content">
+                <h2 id="reader-title">章节标题</h2>
+                <div class="chapter-text" id="reader-content">
+                    <!-- 章节内容将在这里显示 -->
+                </div>
+                
+                <!-- 评论区 - 修改为Gitalk容器 -->
+                <div class="comments-section" id="comments-section">
+                    <h3>读者评论</h3>
+                    <div id="gitalk-container"></div>
+                </div>
+                
+                <div class="chapter-navigation">
+                    <button class="reader-btn" id="back-to-volumes">返回目录</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="copyright">© 2025 Jane Novel Hub</div>
+        <div class="social-links">
+            <a href="https://github.com" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://bilibili.com" target="_blank"><i class="fab fa-bilibili"></i></a>
+        </div>
+    </footer>
+
+    <!-- 添加Gitalk JS -->
+    <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+    <script>
+        // 小说数据
+        const novelsData = [
+            {
+                id: 1,
+                title: "贵妃，你怎么才找到我",
+                description: "讲述贵妃与皇帝之间复杂的情感纠葛。",
+                tags: ["情侣"],
+                volumes: [
+                    {
+                        title: "第一卷：我们的故事",
+                        chapters: [
+                            {
+                                title: "第一章 Y先生的日常",
+                                content: `
+                                    <h3>No1.</h3>
+                                    <p>我老是问Y我的优点是什么，缺点是什么，从不厌烦。同居之前——</p>
+                                    <p>Y同学如实回答："肤白貌美，前凸后翘。小鸟依人，善解人意，软软的。时而温柔，时而可爱，时而活泼。"</p>
+                                    <p>同居以后——</p>
+                                    <p>"会做饭，会洗衣。"</p>
+                                    <p>"还有呢？"</p>
+                                    <p>"没了。"</p>
+                                    <p>......</p>
+                                    <p>你老婆如此贤惠聪明居然都看不到?</p>
+                                `
+                            },
+                            {
+                                title: "第二章 初见皇帝",
+                                content: "在太后的寿宴上，我第一次见到了他——当今的皇帝。他身着明黄色龙袍，眉宇间透着威严，却在看到我的瞬间，眼中闪过一丝我读不懂的情绪..."
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "长安十二时辰",
+                description: "在长安城最危险的十二个时辰里，一个死囚与一名女捕快联手阻止了一场惊天阴谋。",
+                tags: ["悬疑", "历史", "动作"],
+                volumes: [
+                    {
+                        title: "第一卷：危机初现",
+                        chapters: [
+                            {
+                                title: "第一章 死囚出狱",
+                                content: "长安城的清晨，我——一个被判死刑的囚犯，被秘密带出了监狱。带我出来的是一名女捕快，她告诉我，长安城正面临一场前所未有的危机，而我是唯一能帮助她的人..."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // DOM元素
+        const novelsContainer = document.getElementById('novels-container');
+        const searchInput = document.getElementById('search-input');
+        const novelSection = document.getElementById('novel-section');
+        const aboutSection = document.getElementById('about-section');
+        const fictionLink = document.getElementById('fiction-link');
+        const aboutLink = document.getElementById('about-link');
+        const fictionAllLink = document.getElementById('fiction-all-link');
+        const novelModal = document.getElementById('novel-modal');
+        const fullscreenReader = document.getElementById('fullscreen-reader');
+        const closeBtns = document.querySelectorAll('.close-btn');
+        const volumesContainer = document.getElementById('volumes-container');
+        const homeLink = document.getElementById('home-link');
+
+        // 当前阅读状态
+        let currentNovelId = null;
+        let currentNovel = null;
+        let currentVolumeIndex = 0;
+        let currentChapterIndex = 0;
+        let rainInterval;
+
+        // 初始化页面
+        document.addEventListener('DOMContentLoaded', function() {
+            // 渲染所有小说
+            renderNovels(novelsData);
+            
+            // 设置导航链接事件
+            setupNavigation();
+            setupHomeLink();
+            // 设置搜索功能
+            setupSearch();
+            
+            // 设置模态框关闭事件
+            setupModalClose();
+            
+            // 初始化阅读器控制
+            initReaderControls();
+        });
+
+        /**
+         * 渲染小说列表
+         * @param {Array} novels - 小说数据数组
+         */
+        function renderNovels(novels) {
+            novelsContainer.innerHTML = '';
+            
+            novels.forEach((novel, index) => {
+                const card = document.createElement('div');
+                card.className = 'novel-card';
+                card.style.animationDelay = `${index * 0.1}s`;
+                
+                card.innerHTML = `
+                    <h3>${novel.title}</h3>
+                    <p>${novel.description}</p>
+                    <div class="tags">
+                        ${novel.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                    <button class="details-btn" data-id="${novel.id}">查看详情</button>
+                `;
+                
+                novelsContainer.appendChild(card);
+            });
+            
+            // 为详情按钮添加事件
+            document.querySelectorAll('.details-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const novelId = parseInt(this.getAttribute('data-id'));
+                    showNovelDetails(novelId);
+                });
+            });
+        }
+
+        /**
+         * 显示小说详情（卷列表）
+         * @param {number} novelId - 小说ID
+         */
+        function showNovelDetails(novelId) {
+            currentNovelId = novelId;
+            currentNovel = novelsData.find(n => n.id === novelId);
+            
+            if (!currentNovel) return;
+            
+            document.getElementById('modal-title').textContent = currentNovel.title;
+            volumesContainer.innerHTML = '';
+            
+            // 添加返回按钮
+            const backButton = document.createElement('button');
+            backButton.className = 'back-btn';
+            backButton.textContent = '返回小说列表';
+            backButton.addEventListener('click', function() {
+                novelModal.style.display = 'none';
+            });
+            volumesContainer.appendChild(backButton);
+            
+            // 添加卷列表
+            currentNovel.volumes.forEach((volume, index) => {
+                const volumeCard = document.createElement('div');
+                volumeCard.className = 'volume-card';
+                volumeCard.innerHTML = `<h3>${volume.title}</h3>`;
+                
+                volumeCard.addEventListener('click', function() {
+                    showChapters(novelId, volume, index);
+                });
+                
+                volumesContainer.appendChild(volumeCard);
+            });
+            
+            novelModal.style.display = 'block';
+        }
+            
+        /**
+         * 显示章节列表
+         * @param {number} novelId - 小说ID
+         * @param {Object} volume - 卷数据
+         * @param {number} volumeIndex - 卷索引
+         */
+        function showChapters(novelId, volume, volumeIndex) {
+            const novel = novelsData.find(n => n.id === novelId);
+            if (!novel) return;
+            
+            volumesContainer.innerHTML = '';
+            
+            // 添加返回按钮
+            const backButton = document.createElement('button');
+            backButton.className = 'back-btn';
+            backButton.textContent = '返回卷列表';
+            backButton.addEventListener('click', function() {
+                showNovelDetails(novelId);
+            });
+            volumesContainer.appendChild(backButton);
+            
+            // 添加章节列表
+            volume.chapters.forEach((chapter, index) => {
+                const chapterCard = document.createElement('div');
+                chapterCard.className = 'volume-card';
+                chapterCard.innerHTML = `<h3>${chapter.title}</h3>`;
+                
+                chapterCard.addEventListener('click', function() {
+                    showChapterContent(novel.title, volume.title, chapter, index, volumeIndex);
+                });
+                
+                volumesContainer.appendChild(chapterCard);
+            });
+        }
+
+        /**
+         * 显示章节内容
+         * @param {string} novelTitle - 小说标题
+         * @param {string} volumeTitle - 卷标题
+         * @param {Object} chapter - 章节数据
+         * @param {number} chapterIndex - 章节索引
+         * @param {number} volumeIndex - 卷索引
+         */
+        function showChapterContent(novelTitle, volumeTitle, chapter, chapterIndex, volumeIndex) {
+            currentChapterIndex = chapterIndex;
+            currentVolumeIndex = volumeIndex;
+            
+            // 设置全屏阅读器内容
+            document.getElementById('reader-title').innerHTML = `
+                ${novelTitle} <small>> ${volumeTitle} > ${chapter.title}</small>
+            `;
+            document.getElementById('reader-content').innerHTML = `
+                <p>${chapter.content}</p>
+            `;
+            
+            // 隐藏其他模态框，显示全屏阅读器
+            novelModal.style.display = 'none';
+            fullscreenReader.style.display = 'block';
+            
+            // 创建雨滴效果
+            clearRainEffect();
+            createReaderRain();
+            
+            // 更新导航按钮状态
+            updateReaderNavButtons();
+            
+            // 初始化Gitalk评论系统
+            initGitalk(novelTitle, volumeTitle, chapter.title);
+        }
+
+        /**
+         * 初始化Gitalk评论系统
+         */
+        function initGitalk(novelTitle, volumeTitle, chapterTitle) {
+            // 清除之前的Gitalk实例
+            const gitalkContainer = document.getElementById('gitalk-container');
+            gitalkContainer.innerHTML = '';
+            
+            // 生成唯一ID（确保长度不超过50）
+            const id = `${currentNovelId}-${currentVolumeIndex}-${currentChapterIndex}`;
+            
+            // 初始化Gitalk
+            const gitalk = new Gitalk({
+                clientID: '你的GitHub应用Client ID', // 需要替换为实际值
+                clientSecret: '你的GitHub应用Client Secret', // 需要替换为实际值
+                repo: '你的仓库名', // 需要替换为实际值
+                owner: '你的GitHub用户名', // 需要替换为实际值
+                admin: ['你的GitHub用户名'], // 需要替换为实际值
+                id: id, // 确保唯一且长度小于50
+                title: `${novelTitle} - ${volumeTitle} - ${chapterTitle}`,
+                distractionFreeMode: false,
+                language: 'zh-CN'
+            });
+            
+            // 渲染Gitalk
+            gitalk.render('gitalk-container');
+        }
+
+        /**
+         * 更新阅读器导航按钮状态
+         */
+        function updateReaderNavButtons() {
+            const prevBtn = document.getElementById('prev-chapter');
+            const nextBtn = document.getElementById('next-chapter');
+            
+            // 上一章按钮状态
+            prevBtn.disabled = currentChapterIndex <= 0;
+            
+            // 下一章按钮状态
+            const currentVolume = currentNovel.volumes[currentVolumeIndex];
+            nextBtn.disabled = currentChapterIndex >= currentVolume.chapters.length - 1;
+        }
+
+        /**
+         * 设置导航链接事件
+         */
+        function setupNavigation() {
+            // 非虚构小说 - 只显示第一本
+            fictionLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                novelSection.style.display = 'block';
+                aboutSection.style.display = 'none';
+                
+                const nonFictionNovel = novelsData.filter(novel => novel.id === 1);
+                renderNovels(nonFictionNovel);
+                
+                window.scrollTo({
+                    top: novelSection.offsetTop - 20,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // 虚构小说 - 显示第二和第三本
+            fictionAllLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                novelSection.style.display = 'block';
+                aboutSection.style.display = 'none';
+                
+                const fictionNovels = novelsData.filter(novel => novel.id !== 1);
+                renderNovels(fictionNovels);
+                
+                window.scrollTo({
+                    top: novelSection.offsetTop - 20,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // 关于页面
+            aboutLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                novelSection.style.display = 'none';
+                aboutSection.style.display = 'block';
+                
+                window.scrollTo({
+                    top: aboutSection.offsetTop - 20,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        /**
+         * 设置首页链接功能
+         */
+        function setupHomeLink() {
+            homeLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // 隐藏所有特殊页面
+                novelSection.style.display = 'block';
+                aboutSection.style.display = 'none';
+                
+                // 显示所有小说
+                renderNovels(novelsData);
+                
+                // 滚动到顶部
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+                
+                // 清空搜索框
+                searchInput.value = '';
+            });
+        }
+
+        /**
+         * 设置搜索功能
+         */
+        function setupSearch() {
+            searchInput.addEventListener('input', function() {
+                const searchTerm = this.value.toLowerCase();
+                
+                if (searchTerm === '') {
+                    renderNovels(novelsData);
+                    return;
+                }
+                
+                const filteredNovels = novelsData.filter(novel => {
+                    return novel.title.toLowerCase().includes(searchTerm) ||
+                           novel.description.toLowerCase().includes(searchTerm) ||
+                           novel.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+                });
+                
+                renderNovels(filteredNovels);
+            });
+        }
+
+        /**
+         * 设置模态框关闭事件
+         */
+        function setupModalClose() {
+            // 点击关闭按钮
+            closeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    novelModal.style.display = 'none';
+                    fullscreenReader.style.display = 'none';
+                    clearRainEffect();
+                });
+            });
+            
+            // 点击模态框外部关闭
+            window.addEventListener('click', function(e) {
+                if (e.target === novelModal) {
+                    novelModal.style.display = 'none';
+                }
+                if (e.target === fullscreenReader) {
+                    fullscreenReader.style.display = 'none';
+                    clearRainEffect();
+                }
+            });
+            
+            // 按ESC键关闭
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && fullscreenReader.style.display === 'block') {
+                    fullscreenReader.style.display = 'none';
+                    clearRainEffect();
+                }
+            });
+        }
+
+        /**
+         * 初始化阅读器控制
+         */
+        function initReaderControls() {
+            // 关闭阅读器
+            document.getElementById('close-reader').addEventListener('click', function() {
+                fullscreenReader.style.display = 'none';
+                clearRainEffect();
+            });
+            
+            // 返回目录
+            document.getElementById('back-to-volumes').addEventListener('click', function() {
+                fullscreenReader.style.display = 'none';
+                clearRainEffect();
+                showNovelDetails(currentNovel.id);
+            });
+            
+            // 上一章
+            document.getElementById('prev-chapter').addEventListener('click', function() {
+                if (currentChapterIndex > 0) {
+                    const prevChapter = currentNovel.volumes[currentVolumeIndex].chapters[currentChapterIndex - 1];
+                    showChapterContent(
+                        currentNovel.title,
+                        currentNovel.volumes[currentVolumeIndex].title,
+                        prevChapter,
+                        currentChapterIndex - 1,
+                        currentVolumeIndex
+                    );
+                }
+            });
+            
+            // 下一章
+            document.getElementById('next-chapter').addEventListener('click', function() {
+                const currentVolume = currentNovel.volumes[currentVolumeIndex];
+                if (currentChapterIndex < currentVolume.chapters.length - 1) {
+                    const nextChapter = currentVolume.chapters[currentChapterIndex + 1];
+                    showChapterContent(
+                        currentNovel.title,
+                        currentVolume.title,
+                        nextChapter,
+                        currentChapterIndex + 1,
+                        currentVolumeIndex
+                    );
+                }
+            });
+        }
+
+        /**
+         * 生成阅读界面雨滴效果
+         */
+        function createReaderRain() {
+            const rainContainer = document.createElement('div');
+            rainContainer.className = 'reader-rain';
+            fullscreenReader.appendChild(rainContainer);
+            
+            // 生成雨滴
+            const dropsCount = Math.floor(window.innerWidth / 2);
+            for (let i = 0; i < dropsCount; i++) {
+                const drop = document.createElement('div');
+                drop.className = 'reader-drop';
+                
+                // 随机属性
+                const left = Math.random() * 100;
+                const delay = Math.random() * 2;
+                const duration = 0.5 + Math.random() * 1.5;
+                const height = 20 + Math.random() * 40;
+                const opacity = 0.3 + Math.random() * 0.5;
+                const width = 0.5 + Math.random() * 1.5;
+                
+                drop.style.left = `${left}%`;
+                drop.style.animationDelay = `${delay}s`;
+                drop.style.animationDuration = `${duration}s`;
+                drop.style.height = `${height}px`;
+                drop.style.opacity = opacity;
+                drop.style.width = `${width}px`;
+                
+                rainContainer.appendChild(drop);
+            }
+            
+            // 生成涟漪
+            rainInterval = setInterval(() => {
+                const ripple = document.createElement('div');
+                ripple.className = 'reader-ripple';
+                ripple.style.left = `${Math.random() * 100}%`;
+                ripple.style.top = `${85 + Math.random() * 15}%`;
+                rainContainer.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 1000);
+            }, 150);
+        }
+
+        /**
+         * 清除雨滴效果
+         */
+        function clearRainEffect() {
+            clearInterval(rainInterval);
+            const rain = document.querySelector('.reader-rain');
+            if (rain) rain.remove();
+        }
+    </script>
+</body>
+</html>
