@@ -277,7 +277,27 @@ let currentChapterIndex = 0;
 let rainInterval;
 let currentChapterTitle = '';
 let currentChapterIdentifier = '';
+let valineInstance = null;
 
+
+// Valine配置
+const valineConfig = {
+    appId: '7VUQAAaWZARxazhDAA9DmIay-gzGzoHsz', // 请替换为你的LeanCloud App ID
+    appKey: 'DznETOpf40sXQKeYrZNYYPs1', // 请替换为你的LeanCloud App Key
+    placeholder: '欢迎评论~ (支持Markdown语法)',
+    path: window.location.pathname,
+    avatar: 'mp', // 头像样式
+    meta: ['nick', 'mail', 'link'],
+    pageSize: 10,
+    lang: 'zh-CN',
+    highlight: true,
+    recordIP: true,
+    serverURLs: '',
+    emojiCDN: '',
+    emojiMaps: null,
+    enableQQ: false,
+    requiredFields: []
+};
 
 // 生成阅读界面雨滴效果
 function createReaderRain() {
@@ -489,9 +509,9 @@ function showChapterContent(novelTitle, volumeTitle, chapter, chapterIndex, volu
     updateReaderNavButtons();
 initPullToRead();
  
-// 初始化Gitalk评论系统
+// 初始化Valine评论系统
     setTimeout(() => {
-        initGitalk(novelTitle, volumeTitle, chapter.title);
+        initValine(novelTitle, volumeTitle, chapter.title);
     }, 500);
 }
 
@@ -761,43 +781,30 @@ function setupHomeLink() {
 }
 
 /**
- * 初始化Gitalk评论系统
+ * 初始化Valine评论系统
  */
-function initGitalk(novelTitle, volumeTitle, chapterTitle) {
-    // 清除之前的Gitalk实例
-    const gitalkContainer = document.getElementById('gitalk-container');
-    gitalkContainer.innerHTML = '';
-    
+function initValine(novelTitle, volumeTitle, chapterTitle) {
     // 生成唯一ID（确保长度不超过50）
     const id = `${currentNovelId}-${currentVolumeIndex}-${currentChapterIndex}`.substring(0, 50);
     
-    // 初始化Gitalk
-    const gitalk = new Gitalk({
-        ...gitalkConfig,
-        id: id,
-        title: `${novelTitle} - ${volumeTitle} - ${chapterTitle}`,
-        // 添加proxy设置（如果需要）
-    proxy: 'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',
-        // 创建Issue时使用的标签
-        labels: ['小说评论', `小说${currentNovelId}`, `章节${id}`]
-    });
+    // 设置页面路径
+    valineConfig.path = `/novel/${currentNovelId}/volume/${currentVolumeIndex}/chapter/${currentChapterIndex}`;
     
-    // 渲染Gitalk - 使用setTimeout确保DOM更新完成
-    setTimeout(() => {
-        try {
-            gitalk.render('gitalk-container');
-        } catch (error) {
-            console.error('Gitalk渲染失败:', error);
-            gitalkContainer.innerHTML = `
-                <div class="comment-error">
-                    <p>评论加载失败，请刷新页面重试</p>
-                    <p>错误详情: ${error.message}</p>
-                </div>
-            `;
-        }
-    }, 100);
-}        
-
+    // 如果Valine实例已存在，先销毁
+    if (valineInstance) {
+        const vcomments = document.getElementById('vcomments');
+        vcomments.innerHTML = '';
+    }
+    
+    // 初始化Valine
+    valineInstance = new Valine({
+        ...valineConfig,
+        el: '#vcomments',
+        path: valineConfig.path,
+        placeholder: `欢迎评论《${novelTitle} - ${volumeTitle} - ${chapterTitle}》~ (支持Markdown语法)`
+    });
+}
+        
 /**
  * HTML转义函数
  */
