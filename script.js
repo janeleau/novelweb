@@ -776,6 +776,8 @@ function initGitalk(novelTitle, volumeTitle, chapterTitle) {
         ...gitalkConfig,
         id: id,
         title: `${novelTitle} - ${volumeTitle} - ${chapterTitle}`,
+        // 添加proxy设置（如果需要）
+    proxy: 'https://cors-anywhere.herokuapp.com/https://github.com/login/oauth/access_token',
         // 创建Issue时使用的标签
         labels: ['小说评论', `小说${currentNovelId}`, `章节${id}`]
     });
