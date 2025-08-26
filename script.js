@@ -12,12 +12,11 @@ const novelsData = [
                     {
                         title: "第一章 Y先生的日常",
                         // 添加externalUrl字段指向GitHub raw文件
-                        externalUrl: "https://raw.githubusercontent.com/janeleau/novelweb/refs/heads/main/txtfiles/data1/volume1/chapter1",
-                      
+                        externalUrl: "https://raw.githubusercontent.com/janeleau/novelweb/main/txtfiles/data1/volume1/chapter1.txt",                    
                     },
                     {
                         title: "第二章 初见皇帝",
-                         externalUrl:  "https://raw.githubusercontent.com/janeleau/novelweb/refs/heads/main/txtfiles/data1/volume1/chapter2"
+                         externalUrl:  "https://raw.githubusercontent.com/janeleau/novelweb/main/txtfiles/data1/volume1/chapter2.txt"
                     },
                     {
                         title: "第三章 宫中的暗流",
@@ -144,21 +143,11 @@ async function showChapterContent(novelTitle, volumeTitle, chapter, chapterIndex
     document.getElementById('reader-content').innerHTML = `
         <div class="loading-content">加载中...</div>
     `;
-    // 纯文本转HTML格式函数
-function formatTextToHTML(text) {
-    // 将换行符转换为段落
-    const paragraphs = text.split(/\n\s*\n/);
-    let htmlContent = '';
-    
-    paragraphs.forEach(para => {
-        if (para.trim()) {
-            htmlContent += `<p>${para.trim().replace(/\n/g, '<br>')}</p>`;
-        }
-    });
-    
+       
     return htmlContent;
 };
-    // 隐藏其他模态框，显示全屏阅读器
+    
+// 隐藏其他模态框，显示全屏阅读器
     novelModal.style.display = 'none';
     fullscreenReader.style.display = 'block';
     
@@ -192,7 +181,17 @@ function formatTextToHTML(text) {
                 contentCache.set(chapter.externalUrl, contentToDisplay);
             }
         }
-        
+         // 纯文本转HTML格式函数
+function formatTextToHTML(text) {
+    // 将换行符转换为段落
+    const paragraphs = text.split(/\n\s*\n/);
+    let htmlContent = '';
+    
+    paragraphs.forEach(para => {
+        if (para.trim()) {
+            htmlContent += `<p>${para.trim().replace(/\n/g, '<br>')}</p>`;
+        }
+    });
         // 显示最终内容
         document.getElementById('reader-content').innerHTML = contentToDisplay;
         
@@ -447,33 +446,7 @@ function showChapters(novelId, volume, volumeIndex) {
  * @param {Object} chapter - 章节数据
  * @param {number} chapterIndex - 章节索引
  * @param {number} volumeIndex - 卷索引
- */
-function showChapterContent(novelTitle, volumeTitle, chapter, chapterIndex, volumeIndex) {
-
-    currentChapterIndex = chapterIndex;
-    currentVolumeIndex = volumeIndex;
-
-    
-    // 设置全屏阅读器内容
-    document.getElementById('reader-title').innerHTML = `
-        ${novelTitle} <small>> ${volumeTitle} > ${chapter.title}</small>
-    `;
-    document.getElementById('reader-content').innerHTML = `
-        <p>${chapter.content}</p>
-    `;
-    
-    // 隐藏其他模态框，显示全屏阅读器
-    novelModal.style.display = 'none';
-    fullscreenReader.style.display = 'block';
-    
-    // 创建雨滴效果
-    clearRainEffect();
-    createReaderRain();
-    
-    // 更新导航按钮状态
-    updateReaderNavButtons();
-initPullToRead();
- 
+  
 // 初始化Valine评论系统
     setTimeout(() => {
         initValine(novelTitle, volumeTitle, chapter.title);
