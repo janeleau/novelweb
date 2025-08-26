@@ -1,7 +1,7 @@
-// 小说数据 - 修改为使用GitHub路径
+// 小说数据 - 添加externalUrl字段
 const novelsData = [
     {
-       id: 1,
+        id: 1,
         title: "贵妃，你怎么才找到我",
         description: "讲述贵妃与皇帝之间复杂的情感纠葛。",
         tags: ["情侣"],
@@ -11,18 +11,17 @@ const novelsData = [
                 chapters: [
                     {
                         title: "第一章 Y先生的日常",
-                        githubPath: "https://github.com/janeleau/novelweb/blob/main/txtfiles/data1/volume1/chapter1"
+                        // 添加externalUrl字段指向GitHub raw文件
+                        externalUrl: "https://raw.githubusercontent.com/janeleau/novelweb/refs/heads/main/txtfiles/data1/volume1/chapter1",
+                        content: "加载中..." // 初始占位内容
                     },
                     {
                         title: "第二章 初见皇帝",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter2.txt"
+                        content: "在太后的寿宴上，我第一次见到了他——当今的皇帝。他身着明黄色龙袍，眉宇间透着威严，却在看到我的瞬间，眼中闪过一丝我读不懂的情绪..."
                     },
                     {
                         title: "第三章 宫中的暗流",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter3.txt"
-                    },
-                    { title: "第四章 宫中的暗流",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter3.txt"
+                        content: "入宫不到一月，我便感受到了后宫中涌动的暗流。皇后表面和善，眼神却冰冷；其他妃嫔或明或暗地试探着我的底线。我知道，我必须尽快找到立足之地..."
                     }
                 ]
             },
@@ -31,11 +30,11 @@ const novelsData = [
                 chapters: [
                     {
                         title: "第一章 御花园偶遇",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter4.txt"
+                        content: "那日我在御花园赏花，不期然遇见了独自散步的皇帝。他见到我时，眼中闪过一丝惊讶，随即露出了难得的笑容。我们聊起了诗词歌赋，竟发现彼此有着相似的喜好..."
                     },
                     {
                         title: "第二章 宫中的嫉妒",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter5.txt"
+                        content: "自从那次御花园相遇后，皇帝来我宫中的次数明显增多。这引起了其他妃嫔的不满，各种流言蜚语开始在宫中流传。我知道，真正的考验才刚刚开始..."
                     }
                 ]
             },
@@ -44,15 +43,15 @@ const novelsData = [
                 chapters: [
                     {
                         title: "第一章 皇后的警告",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter6.txt"
+                        content: "皇后终于按捺不住，亲自来到我的宫中。她表面上关心我的起居，言语间却处处暗示我不要太接近皇帝。我知道，这是她对我的正式警告..."
                     },
                     {
                         title: "第二章 阴谋",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter7.txt"
+                        content: "宫中突然传出有妃嫔怀孕的消息，而这个人竟是我宫中的侍女。更令人震惊的是，她声称孩子是皇帝的。我知道这是一个精心设计的陷阱，但我该如何证明自己的清白..."
                     },
                     {
                         title: "第三章 真相大白",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter8.txt"
+                        content: "经过一番调查，我终于找到了证据证明那侍女的孩子并非皇帝所出。然而，当我准备揭穿这一切时，却发现背后隐藏着一个更大的阴谋..."
                     }
                 ]
             }
@@ -69,11 +68,11 @@ const novelsData = [
                 chapters: [
                     {
                         title: "第一章 死囚出狱",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter9.txt"
+                        content: "长安城的清晨，我——一个被判死刑的囚犯，被秘密带出了监狱。带我出来的是一名女捕快，她告诉我，长安城正面临一场前所未有的危机，而我是唯一能帮助她的人..."
                     },
                     {
                         title: "第二章 第一个线索",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter10.txt"
+                        content: "在长安城最繁华的东市，我们找到了第一个线索——一家突然关闭的香料铺。铺子里残留的奇怪气味让我想起了西域某种致命的毒药..."
                     }
                 ]
             },
@@ -82,11 +81,11 @@ const novelsData = [
                 chapters: [
                     {
                         title: "第一章 地下密道",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter11.txt"
+                        content: "追查线索的过程中，我们意外发现了长安城地下纵横交错的密道网络。这些密道通向城中各处重要地点，显然是阴谋者精心准备的逃生路线..."
                     },
                     {
                         title: "第二章 敌人的真面目",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter12.txt"
+                        content: "当我们终于截获一名信使时，从他口中得知了一个惊人的消息：这次阴谋的主使者，竟然是..."
                     }
                 ]
             }
@@ -103,11 +102,11 @@ const novelsData = [
                 chapters: [
                     {
                         title: "第一章 雪夜救狐",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter13.txt"
+                        content: "那是一个风雪交加的夜晚，我从书院回家的路上，发现了一只受伤的白狐。它美丽的眼睛中闪烁着人类般的智慧光芒，让我无法弃之不顾..."
                     },
                     {
                         title: "第二章 狐女报恩",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter14.txt"
+                        content: "三天后的满月之夜，一位白衣女子出现在我的书房。她自称是我救下的白狐，前来报恩。从此，我的平凡生活被彻底改变..."
                     }
                 ]
             },
@@ -116,11 +115,11 @@ const novelsData = [
                 chapters: [
                     {
                         title: "第一章 猎妖师",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter15.txt"
+                        content: "一位神秘的猎妖师来到小镇，他敏锐地察觉到了妖气，开始四处搜寻。我必须想办法保护她，但作为一个普通书生，我能做什么..."
                     },
                     {
                         title: "第二章 青丘的秘密",
-                        githubPath: "https://raw.githubusercontent.com/yourusername/yourrepo/main/chapters/chapter16.txt"
+                        content: "她终于向我坦白了自己的身份——她不是普通的狐妖，而是青丘狐族的公主。因为族内叛乱而流落人间，现在叛军派出的杀手已经追踪到了这里..."
                     }
                 ]
             }
@@ -128,6 +127,91 @@ const novelsData = [
     }
 ];
 
+// 添加内容缓存
+const contentCache = new Map();
+
+// 修改showChapterContent函数
+async function showChapterContent(novelTitle, volumeTitle, chapter, chapterIndex, volumeIndex) {
+    currentChapterIndex = chapterIndex;
+    currentVolumeIndex = volumeIndex;
+
+    // 设置全屏阅读器内容
+    document.getElementById('reader-title').innerHTML = `
+        ${novelTitle} <small>> ${volumeTitle} > ${chapter.title}</small>
+    `;
+    
+    // 显示加载状态
+    document.getElementById('reader-content').innerHTML = `
+        <div class="loading-content">加载中...</div>
+    `;
+    
+    // 隐藏其他模态框，显示全屏阅读器
+    novelModal.style.display = 'none';
+    fullscreenReader.style.display = 'block';
+    
+    // 创建雨滴效果
+    clearRainEffect();
+    createReaderRain();
+    
+    // 更新导航按钮状态
+    updateReaderNavButtons();
+    initPullToRead();
+    
+    try {
+        let contentToDisplay = chapter.content;
+        
+        // 检查是否有外部URL
+        if (chapter.externalUrl) {
+            // 检查缓存
+            if (contentCache.has(chapter.externalUrl)) {
+                contentToDisplay = contentCache.get(chapter.externalUrl);
+            } else {
+                // 从GitHub获取内容
+                const response = await fetch(chapter.externalUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const textContent = await response.text();
+                // 将纯文本转换为HTML格式
+                contentToDisplay = formatTextToHTML(textContent);
+                // 缓存内容
+                contentCache.set(chapter.externalUrl, contentToDisplay);
+            }
+        }
+        
+        // 显示最终内容
+        document.getElementById('reader-content').innerHTML = contentToDisplay;
+        
+        // 初始化Valine评论系统
+        setTimeout(() => {
+            initValine(novelTitle, volumeTitle, chapter.title);
+        }, 500);
+    } catch (error) {
+        console.error('加载内容失败:', error);
+        document.getElementById('reader-content').innerHTML = `
+            <div class="error-content">
+                <p>加载内容失败，请检查网络连接或稍后重试。</p>
+                <p>错误详情: ${error.message}</p>
+            </div>
+        `;
+    }
+}
+
+// 纯文本转HTML格式函数
+function formatTextToHTML(text) {
+    // 将换行符转换为段落
+    const paragraphs = text.split(/\n\s*\n/);
+    let htmlContent = '';
+    
+    paragraphs.forEach(para => {
+        if (para.trim()) {
+            htmlContent += `<p>${para.trim().replace(/\n/g, '<br>')}</p>`;
+        }
+    });
+    
+    return htmlContent;
+};
 // DOM元素
 const novelsContainer = document.getElementById('novels-container');
 const searchInput = document.getElementById('search-input');
@@ -142,11 +226,13 @@ const closeBtns = document.querySelectorAll('.close-btn');
 const volumesContainer = document.getElementById('volumes-container');
 const homeLink = document.getElementById('home-link');
 
+
 // 评论相关DOM元素
 const commentAuthor = document.getElementById('comment-author');
 const commentContent = document.getElementById('comment-content');
 const submitCommentBtn = document.getElementById('submit-comment');
 const commentsList = document.getElementById('comments-list');
+
 
 // 当前阅读状态
 let currentNovelId = null;
@@ -158,13 +244,14 @@ let currentChapterTitle = '';
 let currentChapterIdentifier = '';
 let valineInstance = null;
 
+
 // Valine配置
 const valineConfig = {
-    appId: '7VUQAAaWZARxazhDAA9DmIay-gzGzoHsz',
-    appKey: 'DznETOpf40sXQKeYrZNYYPs1',
+    appId: '7VUQAAaWZARxazhDAA9DmIay-gzGzoHsz', // 请替换为你的LeanCloud App ID
+    appKey: 'DznETOpf40sXQKeYrZNYYPs1', // 请替换为你的LeanCloud App Key
     placeholder: '欢迎评论~ (支持Markdown语法)',
     path: window.location.pathname,
-    avatar: 'mp',
+    avatar: 'mp', // 头像样式
     meta: ['nick', 'mail', 'link'],
     pageSize: 10,
     lang: 'zh-CN',
@@ -176,38 +263,6 @@ const valineConfig = {
     enableQQ: false,
     requiredFields: []
 };
-
-// 从GitHub加载章节内容
-async function loadChapterFromGitHub(githubPath) {
-    try {
-        const response = await fetch(githubPath);
-        if (!response.ok) {
-            throw new Error(`HTTP错误: ${response.status}`);
-        }
-        
-        const text = await response.text();
-        return convertTextToHtml(text);
-    } catch (error) {
-        console.error('从GitHub加载章节失败:', error);
-        return `<p>加载失败: ${error.message}</p>`;
-    }
-}
-
-// 文本转HTML函数
-function convertTextToHtml(text) {
-    const paragraphs = text.split(/\n\s*\n/);
-    let html = '';
-    
-    paragraphs.forEach(paragraph => {
-        const trimmed = paragraph.trim();
-        if (trimmed) {
-            const withLineBreaks = trimmed.replace(/\n/g, '<br>');
-            html += `<p>${withLineBreaks}</p>`;
-        }
-    });
-    
-    return html || '<p>无法解析内容</p>';
-}
 
 // 生成阅读界面雨滴效果
 function createReaderRain() {
@@ -276,6 +331,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 初始化阅读器控制
     initReaderControls();
+
 });
 
 /**
@@ -348,7 +404,7 @@ function showNovelDetails(novelId) {
     
     novelModal.style.display = 'block';
 }
-
+    
 /**
  * 显示章节列表
  * @param {number} novelId - 小说ID
@@ -392,39 +448,33 @@ function showChapters(novelId, volume, volumeIndex) {
  * @param {number} chapterIndex - 章节索引
  * @param {number} volumeIndex - 卷索引
  */
-async function showChapterContent(novelTitle, volumeTitle, chapter, chapterIndex, volumeIndex) {
-    // 设置加载状态
-    document.getElementById('reader-content').innerHTML = '<div class="loading">正在加载章节内容...</div>';
-    
-    // 从GitHub加载内容
-    let contentHtml;
-    if (chapter.githubPath) {
-        contentHtml = await loadChapterFromGitHub(chapter.githubPath);
-    } else if (chapter.content) {
-        contentHtml = chapter.content; // 保留对原有content字段的支持
-    } else {
-        contentHtml = '<p>内容不存在</p>';
-    }
-    
-    // 更新页面内容
-    document.getElementById('reader-content').innerHTML = contentHtml;
-    
+function showChapterContent(novelTitle, volumeTitle, chapter, chapterIndex, volumeIndex) {
+
     currentChapterIndex = chapterIndex;
     currentVolumeIndex = volumeIndex;
+
     
+    // 设置全屏阅读器内容
     document.getElementById('reader-title').innerHTML = `
         ${novelTitle} <small>> ${volumeTitle} > ${chapter.title}</small>
     `;
+    document.getElementById('reader-content').innerHTML = `
+        <p>${chapter.content}</p>
+    `;
     
+    // 隐藏其他模态框，显示全屏阅读器
     novelModal.style.display = 'none';
     fullscreenReader.style.display = 'block';
     
+    // 创建雨滴效果
     clearRainEffect();
     createReaderRain();
     
+    // 更新导航按钮状态
     updateReaderNavButtons();
-    initPullToRead();
-    
+initPullToRead();
+ 
+// 初始化Valine评论系统
     setTimeout(() => {
         initValine(novelTitle, volumeTitle, chapter.title);
     }, 500);
@@ -478,30 +528,28 @@ function setupNavigation() {
             behavior: 'smooth'
         });
     });
-    
     // 添加首页链接功能
-    function setupHomeLink() {
-        homeLink.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            // 隐藏所有特殊页面
-            novelSection.style.display = 'block';
-            aboutSection.style.display = 'none';
-            
-            // 显示所有小说
-            renderNovels(novelsData);
-            
-            // 滚动到顶部
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-            
-            // 清空搜索框
-            searchInput.value = '';
+function setupHomeLink() {
+    homeLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // 隐藏所有特殊页面
+        novelSection.style.display = 'block';
+        aboutSection.style.display = 'none';
+        
+        // 显示所有小说
+        renderNovels(novelsData);
+        
+        // 滚动到顶部
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
         });
-    }
-    
+        
+        // 清空搜索框
+        searchInput.value = '';
+    });
+}
     // 关于页面
     aboutLink.addEventListener('click', function(e) {
         e.preventDefault();
@@ -688,8 +736,8 @@ function loadPreviousChapter() {
         }, 500);
     }
 }
-
-// 简单的首页链接实现
+    
+    // 简单的首页链接实现
 function setupHomeLink() {
     homeLink.addEventListener('click', function(e) {
         e.preventDefault();
@@ -721,7 +769,7 @@ function initValine(novelTitle, volumeTitle, chapterTitle) {
         placeholder: `欢迎评论《${novelTitle} - ${volumeTitle} - ${chapterTitle}》~ (支持Markdown语法)`
     });
 }
-
+        
 /**
  * HTML转义函数
  */
