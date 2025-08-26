@@ -17,7 +17,7 @@ const novelsData = [
                     },
                     {
                         title: "第二章 初见皇帝",
-                        content: "在太后的寿宴上，我第一次见到了他——当今的皇帝。他身着明黄色龙袍，眉宇间透着威严，却在看到我的瞬间，眼中闪过一丝我读不懂的情绪..."
+                         externalUrl:  "https://raw.githubusercontent.com/janeleau/novelweb/refs/heads/main/txtfiles/data1/volume1/chapter2"
                     },
                     {
                         title: "第三章 宫中的暗流",
