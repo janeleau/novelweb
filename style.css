@@ -668,3 +668,28 @@ main {
         width: 100% !important;
     }
 }
+/* 加载和错误状态样式 */
+.loading-content, .error-content {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.error-content {
+    color: #e74c3c;
+}
+
+/* 文本格式化样式 */
+.chapter-text p {
+    margin-bottom: 1.5rem;
+    text-indent: 2em;
+    line-height: 1.8;
+}
+
+.chapter-text h3 {
+    margin: 2rem 0 1rem;
+    color: #d35400;
+    border-bottom: 1px solid #f5d76e;
+    padding-bottom: 0.5rem;
+}
