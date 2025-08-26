@@ -13,7 +13,7 @@ const novelsData = [
                         title: "第一章 Y先生的日常",
                         // 添加externalUrl字段指向GitHub raw文件
                         externalUrl: "https://raw.githubusercontent.com/janeleau/novelweb/refs/heads/main/txtfiles/data1/volume1/chapter1",
-                        content: "加载中..." // 初始占位内容
+                      
                     },
                     {
                         title: "第二章 初见皇帝",
@@ -144,7 +144,20 @@ async function showChapterContent(novelTitle, volumeTitle, chapter, chapterIndex
     document.getElementById('reader-content').innerHTML = `
         <div class="loading-content">加载中...</div>
     `;
+    // 纯文本转HTML格式函数
+function formatTextToHTML(text) {
+    // 将换行符转换为段落
+    const paragraphs = text.split(/\n\s*\n/);
+    let htmlContent = '';
     
+    paragraphs.forEach(para => {
+        if (para.trim()) {
+            htmlContent += `<p>${para.trim().replace(/\n/g, '<br>')}</p>`;
+        }
+    });
+    
+    return htmlContent;
+};
     // 隐藏其他模态框，显示全屏阅读器
     novelModal.style.display = 'none';
     fullscreenReader.style.display = 'block';
@@ -198,20 +211,7 @@ async function showChapterContent(novelTitle, volumeTitle, chapter, chapterIndex
     }
 }
 
-// 纯文本转HTML格式函数
-function formatTextToHTML(text) {
-    // 将换行符转换为段落
-    const paragraphs = text.split(/\n\s*\n/);
-    let htmlContent = '';
-    
-    paragraphs.forEach(para => {
-        if (para.trim()) {
-            htmlContent += `<p>${para.trim().replace(/\n/g, '<br>')}</p>`;
-        }
-    });
-    
-    return htmlContent;
-};
+
 // DOM元素
 const novelsContainer = document.getElementById('novels-container');
 const searchInput = document.getElementById('search-input');
