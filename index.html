@@ -1264,13 +1264,12 @@
             
             // 更新导航按钮状态
             updateNavigationButtons();
-            // 修改滚动代码 - 直接跳到顶部
-    setTimeout(() => {
-        const readerContent = document.getElementById('fullscreen-reader');
-        if (readerContent) {
-            readerContent.scrollTop = 0; // 直接设置scrollTop为0
-        }
-    }, 50);
+           // 修改：直接跳到顶部
+            setTimeout(() => {
+                if (fullscreenReader) {
+                    fullscreenReader.scrollTop = 0;
+                }
+            }, 50);
         }
 
         /**
@@ -1361,13 +1360,12 @@
                     currentVolumeIndex
                 );
             }
-          // 修改滚动代码 - 直接跳到顶部
-    setTimeout(() => {
-        const readerContent = document.getElementById('fullscreen-reader');
-        if (readerContent) {
-            readerContent.scrollTop = 0; // 直接设置scrollTop为0
-        }
-    }, 50);
+         // 修改：直接跳到顶部
+            setTimeout(() => {
+                if (fullscreenReader) {
+                    fullscreenReader.scrollTop = 0;
+                }
+            }, 50);
         }
 
         /**
@@ -1402,13 +1400,12 @@
                     currentVolumeIndex
                 );
             }
-             // 修改滚动代码 - 直接跳到顶部
-    setTimeout(() => {
-        const readerContent = document.getElementById('fullscreen-reader');
-        if (readerContent) {
-            readerContent.scrollTop = 0; // 直接设置scrollTop为0
-        }
-    }, 50);
+            // 修改：直接跳到顶部
+            setTimeout(() => {
+                if (fullscreenReader) {
+                    fullscreenReader.scrollTop = 0;
+                }
+            }, 50);
         }
 
         /**
