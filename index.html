@@ -1237,7 +1237,7 @@
             
             // 更新阅读器标题
             document.getElementById('reader-title').innerHTML = `
-                ${novelTitle} <small>${volumeTitle} - ${chapter.title}</small>
+                ${novelTitle} <small>>${volumeTitle} > ${chapter.title}</small>
             `;
             
             // 显示加载指示器
@@ -1264,8 +1264,12 @@
             
             // 更新导航按钮状态
             updateNavigationButtons();
-            // 新增：滚动到页面顶部
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+             // 修改：滚动到全屏阅读器的顶部
+            setTimeout(() => {
+                if (fullscreenReader) {
+                    fullscreenReader.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }, 100);
         }
 
         /**
@@ -1356,8 +1360,12 @@
                     currentVolumeIndex
                 );
             }
-            // 新增：滚动到页面顶部
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+             // 修改：滚动到全屏阅读器的顶部
+            setTimeout(() => {
+                if (fullscreenReader) {
+                    fullscreenReader.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }, 100);
         }
 
         /**
@@ -1392,8 +1400,12 @@
                     currentVolumeIndex
                 );
             }
-            // 新增：滚动到页面顶部
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+             // 修改：滚动到全屏阅读器的顶部
+            setTimeout(() => {
+                if (fullscreenReader) {
+                    fullscreenReader.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            }, 100);
         }
 
         /**
