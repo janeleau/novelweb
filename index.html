@@ -6,7 +6,7 @@
     <title>Jane的小说网站</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/valine@1.5.1/dist/valine.min.css">
-          <style>
+    <style>
         /* 基础样式重置 */
         * {
             margin: 0;
@@ -733,7 +733,32 @@
             }
         }
     
+        /* 加载指示器样式 */
+        .loading-indicator {
+            text-align: center;
+            padding: 40px 0;
+            color: #666;
+        }
         
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(243, 156, 18, 0.3);
+            border-radius: 50%;
+            border-top-color: #f39c12;
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .error-message {
+            text-align: center;
+            padding: 40px 0;
+            color: #e74c3c;
+        }
     
     </style>
 </head>
@@ -861,11 +886,11 @@
                         chapters: [
                             {
                                 title: "第一章 御花园偶遇",
-                                content: "那日我在御花园赏花，不期然遇见了独自散步的皇帝。他见到我时，眼中闪过一丝惊讶，随即露出了难得的笑容。我们聊起了诗词歌赋，竟发现彼此有着相似的喜好..."
+                                file: "files/data1/volume2/chapter1.html"
                             },
                             {
                                 title: "第二章 宫中的嫉妒",
-                                content: "自从那次御花园相遇后，皇帝来我宫中的次数明显增多。这引起了其他妃嫔的不满，各种流言蜚语开始在宫中流传。我知道，真正的考验才刚刚开始..."
+                                file: "files/data1/volume2/chapter2.html"
                             }
                         ]
                     },
@@ -874,15 +899,15 @@
                         chapters: [
                             {
                                 title: "第一章 皇后的警告",
-                                content: "皇后终于按捺不住，亲自来到我的宫中。她表面上关心我的起居，言语间却处处暗示我不要太接近皇帝。我知道，这是她对我的正式警告..."
+                                file: "files/data1/volume3/chapter1.html"
                             },
                             {
                                 title: "第二章 阴谋",
-                                content: "宫中突然传出有妃嫔怀孕的消息，而这个人竟是我宫中的侍女。更令人震惊的是，她声称孩子是皇帝的。我知道这是一个精心设计的陷阱，但我该如何证明自己的清白..."
+                                file: "files/data1/volume3/chapter2.html"
                             },
                             {
                                 title: "第三章 真相大白",
-                                content: "经过一番调查，我终于找到了证据证明那侍女的孩子并非皇帝所出。然而，当我准备揭穿这一切时，却发现背后隐藏着一个更大的阴谋..."
+                                file: "files/data1/volume3/chapter3.html"
                             }
                         ]
                     }
@@ -899,11 +924,11 @@
                         chapters: [
                             {
                                 title: "第一章 死囚出狱",
-                                content: "长安城的清晨，我——一个被判死刑的囚犯，被秘密带出了监狱。带我出来的是一名女捕快，她告诉我，长安城正面临一场前所未有的危机，而我是唯一能帮助她的人..."
+                                file: "files/data2/volume1/chapter1.html"
                             },
                             {
                                 title: "第二章 第一个线索",
-                                content: "在长安城最繁华的东市，我们找到了第一个线索——一家突然关闭的香料铺。铺子里残留的奇怪气味让我想起了西域某种致命的毒药..."
+                                file: "files/data2/volume1/chapter2.html"
                             }
                         ]
                     },
@@ -912,11 +937,11 @@
                         chapters: [
                             {
                                 title: "第一章 地下密道",
-                                content: "追查线索的过程中，我们意外发现了长安城地下纵横交错的密道网络。这些密道通向城中各处重要地点，显然是阴谋者精心准备的逃生路线..."
+                                file: "files/data2/volume2/chapter1.html"
                             },
                             {
                                 title: "第二章 敌人的真面目",
-                                content: "当我们终于截获一名信使时，从他口中得知了一个惊人的消息：这次阴谋的主使者，竟然是..."
+                                file: "files/data2/volume2/chapter2.html"
                             }
                         ]
                     }
@@ -933,11 +958,11 @@
                         chapters: [
                             {
                                 title: "第一章 雪夜救狐",
-                                content: "那是一个风雪交加的夜晚，我从书院回家的路上，发现了一只受伤的白狐。它美丽的眼睛中闪烁着人类般的智慧光芒，让我无法弃之不顾..."
+                                file: "files/data3/volume1/chapter1.html"
                             },
                             {
                                 title: "第二章 狐女报恩",
-                                content: "三天后的满月之夜，一位白衣女子出现在我的书房。她自称是我救下的白狐，前来报恩。从此，我的平凡生活被彻底改变..."
+                                file: "files/data3/volume1/chapter2.html"
                             }
                         ]
                     },
@@ -946,11 +971,11 @@
                         chapters: [
                             {
                                 title: "第一章 猎妖师",
-                                content: "一位神秘的猎妖师来到小镇，他敏锐地察觉到了妖气，开始四处搜寻。我必须想办法保护她，但作为一个普通书生，我能做什么..."
+                                file: "files/data3/volume2/chapter1.html"
                             },
                             {
                                 title: "第二章 青丘的秘密",
-                                content: "她终于向我坦白了自己的身份——她不是普通的狐妖，而是青丘狐族的公主。因为族内叛乱而流落人间，现在叛军派出的杀手已经追踪到了这里..."
+                                file: "files/data3/volume2/chapter2.html"
                             }
                         ]
                     }
@@ -958,32 +983,7 @@
             }
         ];
 
-
-        // 新增函数：加载文本文件内容
-        async function loadChapterContent(filePath) {
-            try {
-                // 显示加载指示器
-                document.getElementById('reader-content').innerHTML = `
-                    <div class="loading-indicator">
-                        <div class="loading-spinner"></div>
-                        <p>正在加载内容...</p>
-                    </div>
-                `;
-                
-                const response = await fetch(filePath);
-                
-                if (!response.ok) {
-                    throw new Error(`文件加载失败: ${response.status} ${response.statusText}`);
-                }
-                
-                const content = await response.text();
-                return content;
-            } catch (error) {
-                console.error('加载章节内容时出错:', error);
-                throw error;
-            }
-        }
-     // DOM元素
+        // DOM元素
         const novelsContainer = document.getElementById('novels-container');
         const searchInput = document.getElementById('search-input');
         const novelSection = document.getElementById('novel-section');
@@ -1204,179 +1204,253 @@
             });
         }
 
+        // 新增函数：加载文本文件内容
+        async function loadChapterContent(filePath) {
+            try {
+                const response = await fetch(filePath);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return await response.text();
+            } catch (error) {
+                console.error('加载章节内容失败:', error);
+                return `<p class="error-message">无法加载章节内容: ${error.message}</p>`;
+            }
+        }
 
+        /**
+         * 显示章节内容
+         * @param {string} novelTitle - 小说标题
+         * @param {string} volumeTitle - 卷标题
+         * @param {Object} chapter - 章节数据
+         * @param {number} chapterIndex - 章节索引
+         * @param {number} volumeIndex - 卷索引
+         */
         async function showChapterContent(novelTitle, volumeTitle, chapter, chapterIndex, volumeIndex) {
-            currentChapterIndex = chapterIndex;
             currentVolumeIndex = volumeIndex;
+            currentChapterIndex = chapterIndex;
+            currentChapterTitle = chapter.title;
             
-            // 设置全屏阅读器内容
+            // 生成章节唯一标识符
+            currentChapterIdentifier = `${novelTitle}-${volumeTitle}-${chapter.title}`;
+            
+            // 更新阅读器标题
             document.getElementById('reader-title').innerHTML = `
-                ${novelTitle} <small>> ${volumeTitle} > ${chapter.title}</small>
+                ${novelTitle} <small>${volumeTitle} - ${chapter.title}</small>
             `;
             
             // 显示加载指示器
             document.getElementById('reader-content').innerHTML = `
                 <div class="loading-indicator">
                     <div class="loading-spinner"></div>
-                    <p>正在加载内容...</p>
+                    <p>正在加载章节内容...</p>
                 </div>
             `;
             
-            try {
-                let contentHtml = '';
-                
-                // 检查是否有外部文件
-                if (chapter.file) {
-                    // 加载外部文件内容
-                    const content = await loadChapterContent(chapter.file);
-                    contentHtml = `<p>${content}</p>`;
-                } else if (chapter.content) {
-                    // 使用内置内容
-                    contentHtml = `<p>${chapter.content}</p>`;
-                } else {
-                    throw new Error('章节内容不存在');
-                }
-                
-                // 显示内容
-                document.getElementById('reader-content').innerHTML = contentHtml;
-            } catch (error) {
-                // 显示错误信息
-                document.getElementById('reader-content').innerHTML = `
-                    <div class="error-message">
-                        <p>加载内容时出错: ${error.message}</p>
-                        ${chapter.file ? `<p>请检查文件路径是否正确: ${chapter.file}</p>` : ''}
-                    </div>
-                `;
-            }
-            
-            // 隐藏其他模态框，显示全屏阅读器
+            // 显示阅读器
             novelModal.style.display = 'none';
             fullscreenReader.style.display = 'block';
             
             // 创建雨滴效果
-            clearRainEffect();
             createReaderRain();
             
-            // 更新导航按钮状态
-            updateReaderNavButtons();
-            initPullToRead();
+            // 加载章节内容
+            const content = await loadChapterContent(chapter.file);
+            document.getElementById('reader-content').innerHTML = content;
             
-            // 初始化Valine评论系统
-            setTimeout(() => {
-                initValine(novelTitle, volumeTitle, chapter.title);
-            }, 500);
+            // 初始化Valine评论
+            initValine();
+            
+            // 更新导航按钮状态
+            updateNavigationButtons();
         }
 
-        // 修改章节导航函数以支持异步加载
-        document.getElementById('prev-chapter').addEventListener('click', async function() {
-            if (currentChapterIndex > 0) {
-                const prevChapter = currentNovel.volumes[currentVolumeIndex].chapters[currentChapterIndex - 1];
-                await showChapterContent(
-                    currentNovel.title,
-                    currentNovel.volumes[currentVolumeIndex].title,
-                    prevChapter,
-                    currentChapterIndex - 1,
-                    currentVolumeIndex
-                );
-            }
-        });
-        
-        document.getElementById('next-chapter').addEventListener('click', async function() {
-            const currentVolume = currentNovel.volumes[currentVolumeIndex];
-            if (currentChapterIndex < currentVolume.chapters.length - 1) {
-                const nextChapter = currentVolume.chapters[currentChapterIndex + 1];
-                await showChapterContent(
-                    currentNovel.title,
-                    currentVolume.title,
-                    nextChapter,
-                    currentChapterIndex + 1,
-                    currentVolumeIndex
-                );
-            }
-        });
-
-           /**
-         * 更新阅读器导航按钮状态
+        /**
+         * 初始化Valine评论系统
          */
-        function updateReaderNavButtons() {
+        function initValine() {
+            // 销毁旧的Valine实例（如果存在）
+            if (valineInstance) {
+                try {
+                    valineInstance.destroy();
+                } catch (e) {
+                    console.warn('销毁Valine实例失败:', e);
+                }
+            }
+            
+            // 设置新的路径
+            valineConfig.path = currentChapterIdentifier;
+            
+            // 创建新的Valine实例
+            try {
+                valineInstance = new Valine(valineConfig);
+                valineInstance.init({
+                    el: '#vcomments'
+                });
+            } catch (e) {
+                console.error('初始化Valine失败:', e);
+                document.getElementById('vcomments').innerHTML = `
+                    <div class="comment-error">
+                        <p>评论系统加载失败: ${e.message}</p>
+                    </div>
+                `;
+            }
+        }
+
+        /**
+         * 更新导航按钮状态
+         */
+        function updateNavigationButtons() {
             const prevBtn = document.getElementById('prev-chapter');
             const nextBtn = document.getElementById('next-chapter');
             
-            // 上一章按钮状态
-            prevBtn.disabled = currentChapterIndex <= 0;
+            // 重置按钮状态
+            prevBtn.disabled = false;
+            nextBtn.disabled = false;
             
-            // 下一章按钮状态
+            // 检查是否有上一章
+            if (currentVolumeIndex === 0 && currentChapterIndex === 0) {
+                prevBtn.disabled = true;
+            }
+            
+            // 检查是否有下一章
             const currentVolume = currentNovel.volumes[currentVolumeIndex];
-            nextBtn.disabled = currentChapterIndex >= currentVolume.chapters.length - 1;
+            if (currentVolumeIndex === currentNovel.volumes.length - 1 && 
+                currentChapterIndex === currentVolume.chapters.length - 1) {
+                nextBtn.disabled = true;
+            }
+        }
+
+        /**
+         * 导航到下一章
+         */
+        function goToNextChapter() {
+            const currentVolume = currentNovel.volumes[currentVolumeIndex];
+            
+            // 检查是否还有下一章
+            if (currentChapterIndex < currentVolume.chapters.length - 1) {
+                // 同一卷中的下一章
+                currentChapterIndex++;
+                const nextChapter = currentVolume.chapters[currentChapterIndex];
+                showChapterContent(
+                    currentNovel.title, 
+                    currentVolume.title, 
+                    nextChapter, 
+                    currentChapterIndex, 
+                    currentVolumeIndex
+                );
+            } else if (currentVolumeIndex < currentNovel.volumes.length - 1) {
+                // 下一卷的第一章
+                currentVolumeIndex++;
+                currentChapterIndex = 0;
+                const nextVolume = currentNovel.volumes[currentVolumeIndex];
+                const nextChapter = nextVolume.chapters[0];
+                showChapterContent(
+                    currentNovel.title, 
+                    nextVolume.title, 
+                    nextChapter, 
+                    currentChapterIndex, 
+                    currentVolumeIndex
+                );
+            }
+        }
+
+        /**
+         * 导航到上一章
+         */
+        function goToPrevChapter() {
+            const currentVolume = currentNovel.volumes[currentVolumeIndex];
+            
+            // 检查是否还有上一章
+            if (currentChapterIndex > 0) {
+                // 同一卷中的上一章
+                currentChapterIndex--;
+                const prevChapter = currentVolume.chapters[currentChapterIndex];
+                showChapterContent(
+                    currentNovel.title, 
+                    currentVolume.title, 
+                    prevChapter, 
+                    currentChapterIndex, 
+                    currentVolumeIndex
+                );
+            } else if (currentVolumeIndex > 0) {
+                // 上一卷的最后一章
+                currentVolumeIndex--;
+                const prevVolume = currentNovel.volumes[currentVolumeIndex];
+                currentChapterIndex = prevVolume.chapters.length - 1;
+                const prevChapter = prevVolume.chapters[currentChapterIndex];
+                showChapterContent(
+                    currentNovel.title, 
+                    prevVolume.title, 
+                    prevChapter, 
+                    currentChapterIndex, 
+                    currentVolumeIndex
+                );
+            }
+        }
+
+        /**
+         * 初始化阅读器控制
+         */
+        function initReaderControls() {
+            // 下一章按钮
+            document.getElementById('next-chapter').addEventListener('click', goToNextChapter);
+            
+            // 上一章按钮
+            document.getElementById('prev-chapter').addEventListener('click', goToPrevChapter);
+            
+            // 关闭阅读器按钮
+            document.getElementById('close-reader').addEventListener('click', function() {
+                fullscreenReader.style.display = 'none';
+                clearRainEffect();
+            });
+            
+            // 返回目录按钮
+            document.getElementById('back-to-volumes').addEventListener('click', function() {
+                fullscreenReader.style.display = 'none';
+                novelModal.style.display = 'block';
+                clearRainEffect();
+            });
         }
 
         /**
          * 设置导航链接事件
          */
         function setupNavigation() {
-            // 非虚构小说 - 只显示第一本
+            // 非虚构小说链接
             fictionLink.addEventListener('click', function(e) {
                 e.preventDefault();
                 novelSection.style.display = 'block';
                 aboutSection.style.display = 'none';
-                
-                const nonFictionNovel = novelsData.filter(novel => novel.id === 1);
-                renderNovels(nonFictionNovel);
-                
-                window.scrollTo({
-                    top: novelSection.offsetTop - 20,
-                    behavior: 'smooth'
-                });
+                window.scrollTo(0, 0);
             });
             
-            // 虚构小说 - 显示第二和第三本
+            // 虚构小说链接
             fictionAllLink.addEventListener('click', function(e) {
                 e.preventDefault();
                 novelSection.style.display = 'block';
                 aboutSection.style.display = 'none';
-                
-                const fictionNovels = novelsData.filter(novel => novel.id !== 1);
-                renderNovels(fictionNovels);
-                
-                window.scrollTo({
-                    top: novelSection.offsetTop - 20,
-                    behavior: 'smooth'
-                });
+                window.scrollTo(0, 0);
             });
             
-            // 关于页面
+            // 关于链接
             aboutLink.addEventListener('click', function(e) {
                 e.preventDefault();
                 novelSection.style.display = 'none';
                 aboutSection.style.display = 'block';
-                
-                window.scrollTo({
-                    top: aboutSection.offsetTop - 20,
-                    behavior: 'smooth'
-                });
+                window.scrollTo(0, 0);
             });
         }
 
-        // 添加首页链接功能
+        /**
+         * 设置首页链接事件
+         */
         function setupHomeLink() {
             homeLink.addEventListener('click', function(e) {
                 e.preventDefault();
-                
-                // 隐藏所有特殊页面
                 novelSection.style.display = 'block';
                 aboutSection.style.display = 'none';
-                
-                // 显示所有小说
-                renderNovels(novelsData);
-                
-                // 滚动到顶部
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-                
-                // 清空搜索框
-                searchInput.value = '';
+                window.scrollTo(0, 0);
             });
         }
 
@@ -1385,7 +1459,7 @@
          */
         function setupSearch() {
             searchInput.addEventListener('input', function() {
-                const searchTerm = this.value.toLowerCase();
+                const searchTerm = this.value.toLowerCase().trim();
                 
                 if (searchTerm === '') {
                     renderNovels(novelsData);
@@ -1393,6 +1467,7 @@
                 }
                 
                 const filteredNovels = novelsData.filter(novel => {
+                    // 搜索标题、描述和标签
                     return novel.title.toLowerCase().includes(searchTerm) ||
                            novel.description.toLowerCase().includes(searchTerm) ||
                            novel.tags.some(tag => tag.toLowerCase().includes(searchTerm));
@@ -1406,12 +1481,10 @@
          * 设置模态框关闭事件
          */
         function setupModalClose() {
-            // 点击关闭按钮
+            // 关闭按钮
             closeBtns.forEach(btn => {
                 btn.addEventListener('click', function() {
                     novelModal.style.display = 'none';
-                    fullscreenReader.style.display = 'none';
-                    clearRainEffect();
                 });
             });
             
@@ -1420,331 +1493,8 @@
                 if (e.target === novelModal) {
                     novelModal.style.display = 'none';
                 }
-                if (e.target === fullscreenReader) {
-                    fullscreenReader.style.display = 'none';
-                    clearRainEffect();
-                }
             });
-            
-            // 按ESC键关闭
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && fullscreenReader.style.display === 'block') {
-                    fullscreenReader.style.display = 'none';
-                    clearRainEffect();
-                }
-            });
-        }
-
-
-        /**
-         * 初始化阅读器控制
-         */
-        function initReaderControls() {
-            // 关闭阅读器
-            document.getElementById('close-reader').addEventListener('click', function() {
-                fullscreenReader.style.display = 'none';
-                clearRainEffect();
-            });
-            
-            // 返回目录
-            document.getElementById('back-to-volumes').addEventListener('click', function() {
-                fullscreenReader.style.display = 'none';
-                clearRainEffect();
-                showNovelDetails(currentNovel.id);
-            });
-            
-            // 上一章 - 修改为异步处理
-            document.getElementById('prev-chapter').addEventListener('click', async function() {
-                if (currentChapterIndex > 0) {
-                    const prevChapter = currentNovel.volumes[currentVolumeIndex].chapters[currentChapterIndex - 1];
-                    await showChapterContent(
-                        currentNovel.title,
-                        currentNovel.volumes[currentVolumeIndex].title,
-                        prevChapter,
-                        currentChapterIndex - 1,
-                        currentVolumeIndex
-                    );
-                }
-            });
-            
-            // 下一章 - 修改为异步处理
-            document.getElementById('next-chapter').addEventListener('click', async function() {
-                const currentVolume = currentNovel.volumes[currentVolumeIndex];
-                if (currentChapterIndex < currentVolume.chapters.length - 1) {
-                    const nextChapter = currentVolume.chapters[currentChapterIndex + 1];
-                    await showChapterContent(
-                        currentNovel.title,
-                        currentVolume.title,
-                        nextChapter,
-                        currentChapterIndex + 1,
-                        currentVolumeIndex
-                    );
-                }
-            });
-        }
-
-    
-        // 新增下拉阅读功能
-        function initPullToRead() {
-            const reader = document.getElementById('fullscreen-reader');
-            let startY = 0;
-            let currentY = 0;
-            let isDragging = false;
-            let currentScrollTop = 0;
-
-            reader.addEventListener('touchstart', (e) => {
-                currentScrollTop = window.scrollY;
-                if (currentScrollTop === 0) {
-                    startY = e.touches[0].pageY;
-                    isDragging = true;
-                }
-            }, { passive: true });
-
-            reader.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
-                
-                currentY = e.touches[0].pageY;
-                const deltaY = currentY - startY;
-                
-                // 只有在下拉时才处理
-                if (deltaY > 0 && currentScrollTop === 0) {
-                    e.preventDefault();
-                    
-                    // 计算阻尼效果
-                    const dragPercent = Math.min(1, deltaY / window.innerHeight);
-                    const dragOffset = dragPercent * 100;
-                    
-                    // 应用视觉反馈
-                    document.getElementById('reader-content').style.transform = `translateY(${dragOffset}px)`;
-                    
-                    // 当下拉足够距离时加载上一章
-                    if (dragPercent > 0.3) {
-                        loadPreviousChapter();
-                        isDragging = false;
-                    }
-                }
-            }, { passive: false });
-
-            reader.addEventListener('touchend', () => {
-                if (!isDragging) return;
-                
-                // 恢复原位
-                document.getElementById('reader-content').style.transform = 'translateY(0)';
-                isDragging = false;
-            }, { passive: true });
-        }
-
-        function loadPreviousChapter() {
-            if (currentChapterIndex > 0) {
-                const prevChapter = currentNovel.volumes[currentVolumeIndex].chapters[currentChapterIndex - 1];
-                showChapterContent(
-                    currentNovel.title,
-                    currentNovel.volumes[currentVolumeIndex].title,
-                    prevChapter,
-                    currentChapterIndex - 1,
-                    currentVolumeIndex
-                );
-            } else {
-                // 已经是第一章，回弹效果
-                const readerContent = document.getElementById('reader-content');
-                readerContent.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1)';
-                readerContent.style.transform = 'translateY(0)';
-                
-                setTimeout(() => {
-                    readerContent.style.transition = '';
-                }, 500);
-            }
-        }
-            
-        /**
-         * 初始化Valine评论系统
-         */
-        function initValine(novelTitle, volumeTitle, chapterTitle) {
-            // 生成唯一ID（确保长度不超过50）
-            const id = `${currentNovelId}-${currentVolumeIndex}-${currentChapterIndex}`.substring(0, 50);
-            
-            // 设置页面路径
-            valineConfig.path = `/novel/${currentNovelId}/volume/${currentVolumeIndex}/chapter/${currentChapterIndex}`;
-            
-            // 如果Valine实例已存在，先销毁
-            if (valineInstance) {
-                const vcomments = document.getElementById('vcomments');
-                vcomments.innerHTML = '';
-            }
-            
-            // 初始化Valine
-            valineInstance = new Valine({
-                ...valineConfig,
-                el: '#vcomments',
-                path: valineConfig.path,
-                placeholder: `欢迎评论《${novelTitle} - ${volumeTitle} - ${chapterTitle}》~ (支持Markdown语法)`
-            });
-            
-            // 初始化后添加删除功能
-            setTimeout(() => {
-                addDeleteFunctionality();
-                observeCommentsChanges(); // 监听评论变化
-            }, 1000);
-        }
-
-        // 添加删除功能
-        function addDeleteFunctionality() {
-            const comments = document.querySelectorAll('.vcard');
-            comments.forEach(comment => {
-                addDeleteButtonToComment(comment);
-            });
-        }
-
-        // 为评论添加删除按钮
-        function addDeleteButtonToComment(commentElement) {
-            // 检查是否已添加删除按钮
-            if (commentElement.querySelector('.comment-delete-btn')) return;
-            
-            const commentId = commentElement.getAttribute('id');
-            if (!commentId) return;
-            
-            // 获取评论作者信息
-            const authorElement = commentElement.querySelector('.vnick');
-            if (!authorElement) return;
-            const authorName = authorElement.textContent;
-            
-            // 获取评论邮箱（用于识别当前用户）
-            const mailElement = commentElement.querySelector('.vmail');
-            const authorMail = mailElement ? mailElement.getAttribute('href')?.replace('mailto:', '') : '';
-            
-            // 获取当前登录用户
-            const currentUser = getCurrentUser();
-            const isAdmin = currentUser && adminEmails.includes(currentUser.email);
-            const isAuthor = currentUser && authorMail === currentUser.email;
-            
-            // 只有管理员或作者才能看到删除按钮
-            if (isAdmin || isAuthor) {
-                const deleteBtn = document.createElement('button');
-                deleteBtn.className = 'comment-delete-btn';
-                deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
-                deleteBtn.title = '删除评论';
-                deleteBtn.onclick = function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    deleteComment(commentId.replace('comment-', ''), commentElement);
-                };
-                
-                // 找到评论操作区域添加删除按钮
-                const actionArea = commentElement.querySelector('.vmeta');
-                if (actionArea) {
-                    // 添加一些样式
-                    deleteBtn.style.background = 'none';
-                    deleteBtn.style.border = 'none';
-                    deleteBtn.style.color = '#e74c3c';
-                    deleteBtn.style.cursor = 'pointer';
-                    deleteBtn.style.marginLeft = '10px';
-                    actionArea.appendChild(deleteBtn);
-                }
-            }
-        }
-
-        // 获取当前用户信息
-        function getCurrentUser() {
-            try {
-                // Valine将用户信息存储在localStorage
-                const userStr = localStorage.getItem('LEANCLOUD_USER');
-                if (userStr) {
-                    return JSON.parse(userStr);
-                }
-            } catch (e) {
-                console.error('获取用户信息失败', e);
-            }
-            return null;
-        }
-
-        // 删除评论函数
-        function deleteComment(commentId, commentElement) {
-            if (!confirm('确定要删除这条评论吗？此操作不可恢复。')) return;
-            
-            // 使用LeanCloud API删除评论
-            const Comment = AV.Object.extend('Comment');
-            const query = new AV.Query(Comment);
-            
-            query.get(commentId).then((comment) => {
-                return comment.destroy();
-            }).then(() => {
-                // 删除成功，从UI中移除评论
-                commentElement.style.opacity = '0.5';
-                setTimeout(() => {
-                    commentElement.remove();
-                    // 如果没有评论了，显示提示
-                    if (document.querySelectorAll('.vcard').length === 0) {
-                        document.querySelector('#vcomments').innerHTML = 
-                            '<div class="no-comments">暂无评论</div>';
-                    }
-                }, 500);
-                
-                // 显示成功消息
-                showMessage('评论已删除', 'success');
-            }).catch((error) => {
-                console.error('删除评论失败:', error);
-                showMessage('删除评论失败: ' + error.message, 'error');
-            });
-        }
-
-        // 显示消息提示
-        function showMessage(message, type = 'info') {
-            // 移除现有消息
-            const existingMsg = document.querySelector('.comment-message');
-            if (existingMsg) existingMsg.remove();
-            
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `comment-message comment-${type}`;
-            msgDiv.textContent = message;
-            msgDiv.style.position = 'fixed';
-            msgDiv.style.top = '20px';
-            msgDiv.style.right = '20px';
-            msgDiv.style.padding = '10px 15px';
-            msgDiv.style.borderRadius = '5px';
-            msgDiv.style.zIndex = '10000';
-            msgDiv.style.color = 'white';
-            msgDiv.style.fontWeight = 'bold';
-            
-            if (type === 'success') {
-                msgDiv.style.background = '#27ae60';
-            } else if (type === 'error') {
-                msgDiv.style.background = '#e74c3c';
-            } else {
-                msgDiv.style.background = '#3498db';
-            }
-            
-            document.body.appendChild(msgDiv);
-            
-            // 3秒后自动消失
-            setTimeout(() => {
-                msgDiv.style.opacity = '0';
-                msgDiv.style.transition = 'opacity 0.5s';
-                setTimeout(() => msgDiv.remove(), 500);
-            }, 3000);
-        }
-
-        // 监听评论变化（新评论添加）
-        function observeCommentsChanges() {
-            const targetNode = document.getElementById('vcomments');
-            if (!targetNode) return;
-            
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    if (mutation.addedNodes.length) {
-                        mutation.addedNodes.forEach((node) => {
-                            if (node.nodeType === 1 && node.classList.contains('vcard')) {
-                                setTimeout(() => {
-                                    addDeleteButtonToComment(node);
-                                }, 100);
-                            }
-                        });
-                    }
-                });
-            });
-            
-            observer.observe(targetNode, { childList: true, subtree: true });
         }
     </script>
 </body>
 </html>
-    
