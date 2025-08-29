@@ -1205,7 +1205,6 @@
         }
 
 
-        // 修改showChapterContent函数以加载外部文件
         async function showChapterContent(novelTitle, volumeTitle, chapter, chapterIndex, volumeIndex) {
             currentChapterIndex = chapterIndex;
             currentVolumeIndex = volumeIndex;
@@ -1224,19 +1223,28 @@
             `;
             
             try {
-                // 加载外部文件内容
-                const content = await loadChapterContent(chapter.file);
+                let contentHtml = '';
+                
+                // 检查是否有外部文件
+                if (chapter.file) {
+                    // 加载外部文件内容
+                    const content = await loadChapterContent(chapter.file);
+                    contentHtml = `<p>${content}</p>`;
+                } else if (chapter.content) {
+                    // 使用内置内容
+                    contentHtml = `<p>${chapter.content}</p>`;
+                } else {
+                    throw new Error('章节内容不存在');
+                }
                 
                 // 显示内容
-                document.getElementById('reader-content').innerHTML = `
-                    <p>${content}</p>
-                `;
+                document.getElementById('reader-content').innerHTML = contentHtml;
             } catch (error) {
                 // 显示错误信息
                 document.getElementById('reader-content').innerHTML = `
                     <div class="error-message">
                         <p>加载内容时出错: ${error.message}</p>
-                        <p>请检查文件路径是否正确: ${chapter.file}</p>
+                        ${chapter.file ? `<p>请检查文件路径是否正确: ${chapter.file}</p>` : ''}
                     </div>
                 `;
             }
@@ -1287,7 +1295,7 @@
             }
         });
 
-            /**
+           /**
          * 更新阅读器导航按钮状态
          */
         function updateReaderNavButtons() {
@@ -1427,6 +1435,7 @@
             });
         }
 
+
         /**
          * 初始化阅读器控制
          */
@@ -1444,11 +1453,11 @@
                 showNovelDetails(currentNovel.id);
             });
             
-            // 上一章
-            document.getElementById('prev-chapter').addEventListener('click', function() {
+            // 上一章 - 修改为异步处理
+            document.getElementById('prev-chapter').addEventListener('click', async function() {
                 if (currentChapterIndex > 0) {
                     const prevChapter = currentNovel.volumes[currentVolumeIndex].chapters[currentChapterIndex - 1];
-                    showChapterContent(
+                    await showChapterContent(
                         currentNovel.title,
                         currentNovel.volumes[currentVolumeIndex].title,
                         prevChapter,
@@ -1458,12 +1467,12 @@
                 }
             });
             
-            // 下一章
-            document.getElementById('next-chapter').addEventListener('click', function() {
+            // 下一章 - 修改为异步处理
+            document.getElementById('next-chapter').addEventListener('click', async function() {
                 const currentVolume = currentNovel.volumes[currentVolumeIndex];
                 if (currentChapterIndex < currentVolume.chapters.length - 1) {
                     const nextChapter = currentVolume.chapters[currentChapterIndex + 1];
-                    showChapterContent(
+                    await showChapterContent(
                         currentNovel.title,
                         currentVolume.title,
                         nextChapter,
@@ -1474,6 +1483,7 @@
             });
         }
 
+    
         // 新增下拉阅读功能
         function initPullToRead() {
             const reader = document.getElementById('fullscreen-reader');
