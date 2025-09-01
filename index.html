@@ -1438,24 +1438,32 @@
         function setupNavigation() {
             // 非虚构小说链接
             fictionLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                novelSection.style.display = 'block';
-                aboutSection.style.display = 'none';
-                 const nonFictionNovel = novelsData.filter(novel => novel.id === 1);
+        e.preventDefault();
+        novelSection.style.display = 'block';
+        aboutSection.style.display = 'none';
+        
+        const nonFictionNovel = novelsData.filter(novel => novel.id === 1);
         renderNovels(nonFictionNovel);
-                window.scrollTo(0, 0);
-            });
-            
+        
+        window.scrollTo({
+            top: novelSection.offsetTop - 20,
+            behavior: 'smooth'
+ });
+    });     
             // 虚构小说链接
             fictionAllLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                novelSection.style.display = 'block';
-                aboutSection.style.display = 'none';
-                 const nonFictionNovel = novelsData.filter(novel => novel.id !=== 1);
-        renderNovels(nonFictionNovel);
-                window.scrollTo(0, 0);
-            });
-            
+        e.preventDefault();
+        novelSection.style.display = 'block';
+        aboutSection.style.display = 'none';
+        
+        const fictionNovels = novelsData.filter(novel => novel.id !== 1);
+        renderNovels(fictionNovels);
+        
+        window.scrollTo({
+            top: novelSection.offsetTop - 20,
+            behavior: 'smooth'
+        });
+    });          
             // 关于链接
             aboutLink.addEventListener('click', function(e) {
                 e.preventDefault();
