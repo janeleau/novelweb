@@ -1483,9 +1483,6 @@
         novelSection.style.display = 'block';
         aboutSection.style.display = 'none';
         
-        const fictionNovels = novelsData.filter(novel => novel.id );
-        renderNovels(fictionNovels);
-        
         window.scrollTo({
             top: novelSection.offsetTop - 20,
             behavior: 'smooth'
