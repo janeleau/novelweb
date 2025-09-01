@@ -862,7 +862,7 @@
                 tags: ["情侣"],
                 volumes: [
                     {
-                        title: "第一卷",
+                        title: "第一卷：初遇",
                         chapters: [
                             {
                                 title: "第一章",
@@ -1441,6 +1441,8 @@
                 e.preventDefault();
                 novelSection.style.display = 'block';
                 aboutSection.style.display = 'none';
+                 const nonFictionNovel = novelsData.filter(novel => novel.id === 1);
+        renderNovels(nonFictionNovel);
                 window.scrollTo(0, 0);
             });
             
@@ -1449,6 +1451,8 @@
                 e.preventDefault();
                 novelSection.style.display = 'block';
                 aboutSection.style.display = 'none';
+                 const nonFictionNovel = novelsData.filter(novel => novel.id !=== 1);
+        renderNovels(nonFictionNovel);
                 window.scrollTo(0, 0);
             });
             
