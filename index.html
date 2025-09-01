@@ -1477,14 +1477,26 @@
          * 设置首页链接事件
          */
         function setupHomeLink() {
-            homeLink.addEventListener('click', function(e) {
-                e.preventDefault();
-                novelSection.style.display = 'block';
-                aboutSection.style.display = 'none';
-                window.scrollTo(0, 0);
-            });
-        }
-
+    homeLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        // 隐藏所有特殊页面
+        novelSection.style.display = 'block';
+        aboutSection.style.display = 'none';
+        
+        // 显示所有小说
+        renderNovels(novelsData);
+        
+        // 滚动到顶部
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        // 清空搜索框
+        searchInput.value = '';
+    });
+}
         /**
          * 设置搜索功能
          */
