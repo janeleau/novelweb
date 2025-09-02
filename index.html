@@ -1431,7 +1431,18 @@
                 clearRainEffect();
             });
         }
-
+ /**
+         * 设置首页链接事件
+         */
+        function setupHomeLink() {
+    homeLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        novelSection.style.display = 'block';
+        aboutSection.style.display = 'none';
+        
+        window.scrollTo(0, 0);
+               }
         /**
          * 设置导航链接事件
          */
@@ -1473,21 +1484,7 @@
             });
         }
 
-        /**
-         * 设置首页链接事件
-         */
-        function setupHomeLink() {
-    homeLink.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        novelSection.style.display = 'block';
-        aboutSection.style.display = 'none';
-        
-        window.scrollTo({
-            top: novelSection.offsetTop - 20,
-            behavior: 'smooth'
-                });
-               }
+       
         /**
          * 设置搜索功能
          */
