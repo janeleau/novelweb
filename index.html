@@ -183,11 +183,13 @@
             margin-right: auto;
             position: relative;
             z-index: 5;
+            font-family: "华文行楷", "STXingkai", "Microsoft YaHei", sans-serif;
         }
 
         .about-content p {
             margin-bottom: 1rem;
             text-align: center;
+            font-family: "华文行楷", "STXingkai", "Microsoft YaHei", sans-serif;
         }
 
         /* 模态框样式 */
@@ -796,10 +798,10 @@
         <section class="about-section" id="about-section" style="display: none;">
             <h2>关于作者</h2>
             <div class="about-content">
-                <p>大家好，我是Jane，一名热爱写作的创作者。</p>
-                <p>我的小说主要聚焦于现实生活中的情感故事，希望通过文字传递温暖和力量。</p>
-                <p>写作是我表达自我的方式，也是我与世界对话的桥梁。</p>
-                <p>感谢你的阅读和支持！</p>
+                <div class="loading-indicator">
+                    <div class="loading-spinner"></div>
+                    <p>正在加载作者简介...</p>
+                </div>
             </div>
         </section>
 
@@ -1493,7 +1495,36 @@
                 novelSection.style.display = 'none';
                 aboutSection.style.display = 'block';
                 window.scrollTo(0, 0);
+                loadAboutContent();
             });
+            async function loadAboutContent() {
+    try {
+        const response = await fetch('about-author.txt'); // 修改为您的文件路径
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const content = await response.text();
+        
+        // 将文本内容转换为HTML段落
+        const paragraphs = content.split('\n').filter(p => p.trim() !== '');
+        let html = '';
+        
+        paragraphs.forEach(paragraph => {
+            html += `<p>${paragraph}</p>`;
+        });
+        
+        document.querySelector('.about-content').innerHTML = html;
+        
+    } catch (error) {
+        console.error('加载关于作者内容失败:', error);
+        document.querySelector('.about-content').innerHTML = `
+            <p>大家好，我是Jane，一名热爱写作的创作者。</p>
+            <p>我的小说主要聚焦于现实生活中的情感故事，希望通过文字传递温暖和力量。</p>
+            <p>写作是我表达自我的方式，也是我与世界对话的桥梁。</p>
+            <p>感谢你的阅读和支持！</p>
+        `;
+    }
+}
         }
 
        
