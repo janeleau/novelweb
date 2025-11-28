@@ -1500,6 +1500,7 @@
                 window.scrollTo(0, 0);
                 loadAboutContent();
             });
+        }
             async function loadAboutContent() {
     try {
         const response = await fetch('/files/about.txt'); // 修改为您的文件路径
@@ -1516,11 +1517,11 @@
             html += `<p>${paragraph}</p>`;
         });
         
-        document.querySelector('.about-content').innerHTML = html;
+        aboutContent.innerHTML = html;
         
     } catch (error) {
         console.error('加载关于作者内容失败:', error);
-        document.querySelector('.about-content').innerHTML = `
+        aboutContent.innerHTML = `
             <p>大家好，我是Jane，一名热爱写作的创作者。</p>
             <p>我的小说主要聚焦于现实生活中的情感故事，希望通过文字传递温暖和力量。</p>
             <p>写作是我表达自我的方式，也是我与世界对话的桥梁。</p>
@@ -1528,9 +1529,7 @@
         `;
     }
 }
-        }
-
-       
+     
         /**
          * 设置搜索功能
          */
