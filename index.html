@@ -1492,7 +1492,7 @@
             behavior: 'smooth'
         });
     });          
-            // 关于链接
+                        // 关于链接
             aboutLink.addEventListener('click', function(e) {
                 e.preventDefault();
                 novelSection.style.display = 'none';
@@ -1501,34 +1501,43 @@
                 loadAboutContent();
             });
         }
-            async function loadAboutContent() {
-    try {
-        const response = await fetch('/files/about.txt'); // 修改为您的文件路径
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+
+        // 新增函数：从文件加载关于作者内容
+        async function loadAboutContent() {
+            const aboutContent = document.querySelector('.about-content');
+            
+            try {
+                const response = await fetch('/files/about.txt'); // 修改为您的实际文件路径
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const content = await response.text();
+                
+                // 将文本内容转换为HTML段落
+                const paragraphs = content.split('\n').filter(p => p.trim() !== '');
+                let html = '';
+                
+                paragraphs.forEach(paragraph => {
+                    html += `<p>${paragraph}</p>`;
+                });
+                
+                aboutContent.innerHTML = html;
+                
+            } catch (error) {
+                console.error('加载关于作者内容失败:', error);
+                aboutContent.innerHTML = `
+                    <div class="error-message">
+                        <p>无法加载作者简介文件: ${error.message}</p>
+                        <p>请确保文件 "about-author.txt" 存在于正确的位置。</p>
+                        <p>作为示例，这里显示默认内容：</p>
+                        <p>大家好，我是Jane，一名热爱写作的创作者。</p>
+                        <p>我的小说主要聚焦于现实生活中的情感故事，希望通过文字传递温暖和力量。</p>
+                        <p>写作是我表达自我的方式，也是我与世界对话的桥梁。</p>
+                        <p>感谢你的阅读和支持！</p>
+                    </div>
+                `;
+            }
         }
-        const content = await response.text();
-        
-        // 将文本内容转换为HTML段落
-        const paragraphs = content.split('\n').filter(p => p.trim() !== '');
-        let html = '';
-        
-        paragraphs.forEach(paragraph => {
-            html += `<p>${paragraph}</p>`;
-        });
-        
-        aboutContent.innerHTML = html;
-        
-    } catch (error) {
-        console.error('加载关于作者内容失败:', error);
-        aboutContent.innerHTML = `
-            <p>大家好，我是Jane，一名热爱写作的创作者。</p>
-            <p>我的小说主要聚焦于现实生活中的情感故事，希望通过文字传递温暖和力量。</p>
-            <p>写作是我表达自我的方式，也是我与世界对话的桥梁。</p>
-            <p>感谢你的阅读和支持！</p>
-        `;
-    }
-}
      
         /**
          * 设置搜索功能
