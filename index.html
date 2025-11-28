@@ -1499,7 +1499,7 @@
             });
             async function loadAboutContent() {
     try {
-        const response = await fetch('about-author.txt'); // 修改为您的文件路径
+        const response = await fetch('files/about.txt'); // 修改为您的文件路径
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
